@@ -17,49 +17,54 @@ Malawi, Africa. It is licensed under the Mozilla Public License.
 
 Setup
 =====
-git clone git://github.com/jeffrafter/mateme.git 
-cd mateme
+This project depends on OpenMRS which is a mysql database. We don't have this
+running migrations and behaving in a cross-database way (e.g., for sqlite3) 
+because of the dependencies on composite primary keys. So, make sure you 
+have mysql and then:
 
-$ cp config/database.yml.example config/database.yml
+    git clone git://github.com/jeffrafter/mateme.git 
+    cd mateme
 
-development:
-  adapter: mysql
-  database: lalanje_development
-  username: root
-  password:
-  host: localhost
+    $ cp config/database.yml.example config/database.yml
 
-test:
-  adapter: mysql
-  database: lalanje_test
-  username: root
-  password: 
-  host: localhost
+    development:
+      adapter: mysql
+      database: lalanje_development
+      username: root
+      password:
+      host: localhost
 
-cucumber:
-  adapter: mysql
-  database: lalanje_test
-  username: root
-  password: 
-  host: localhost
+    test:
+      adapter: mysql
+      database: lalanje_test
+      username: root
+      password: 
+      host: localhost
+
+    cucumber:
+      adapter: mysql
+      database: lalanje_test
+      username: root
+      password: 
+      host: localhost
 
 
-$ mysql -u root -p
-mysql> create database lalanje_test;
-Query OK, 1 row affected (0.01 sec)
-mysql> create database lalanje_development;
-Query OK, 1 row affected (0.01 sec)
+    $ mysql -u root -p
+    mysql> create database lalanje_test;
+    Query OK, 1 row affected (0.01 sec)
+    mysql> create database lalanje_development;
+    Query OK, 1 row affected (0.01 sec)
 
-$ mysql -u root lalanje_test < db/schema.sql
-$ mysql -u root lalanje_test < db/openmrs_metadata.sql 
-$ mysql -u root lalanje_test < db/defaults.sql 
-$ mysql -u root lalanje_test < db/data/nno/nno.sql
-$ mysql -u root lalanje_test < db/data/nno/tasks.sql
-$ rake test
-$ rake cucumber
+    $ mysql -u root lalanje_test < db/schema.sql
+    $ mysql -u root lalanje_test < db/openmrs_metadata.sql 
+    $ mysql -u root lalanje_test < db/defaults.sql 
+    $ mysql -u root lalanje_test < db/data/nno/nno.sql
+    $ mysql -u root lalanje_test < db/data/nno/tasks.sql
+    $ rake test
+    $ rake cucumber
 
-$ mysql -u root lalanje_development < db/schema.sql
-$ mysql -u root lalanje_development < db/openmrs_metadata.sql 
-$ mysql -u root lalanje_development < db/defaults.sql 
-$ mysql -u root lalanje_development < db/data/nno/nno.sql
-$ mysql -u root lalanje_development < db/data/nno/tasks.sql
+    $ mysql -u root lalanje_development < db/schema.sql
+    $ mysql -u root lalanje_development < db/openmrs_metadata.sql 
+    $ mysql -u root lalanje_development < db/defaults.sql 
+    $ mysql -u root lalanje_development < db/data/nno/nno.sql
+    $ mysql -u root lalanje_development < db/data/nno/tasks.sql
