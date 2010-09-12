@@ -13,3 +13,53 @@ contributing your efforts to our mission!
 
 Mateme was built by Baobab Health and Partners in Health in
 Malawi, Africa. It is licensed under the Mozilla Public License.
+
+
+Setup
+=====
+git clone git://github.com/jeffrafter/mateme.git 
+cd mateme
+
+$ cp config/database.yml.example config/database.yml
+
+development:
+  adapter: mysql
+  database: lalanje_development
+  username: root
+  password:
+  host: localhost
+
+test:
+  adapter: mysql
+  database: lalanje_test
+  username: root
+  password: 
+  host: localhost
+
+cucumber:
+  adapter: mysql
+  database: lalanje_test
+  username: root
+  password: 
+  host: localhost
+
+
+$ mysql -u root -p
+mysql> create database lalanje_test;
+Query OK, 1 row affected (0.01 sec)
+mysql> create database lalanje_development;
+Query OK, 1 row affected (0.01 sec)
+
+$ mysql -u root lalanje_test < db/schema.sql
+$ mysql -u root lalanje_test < db/openmrs_metadata.sql 
+$ mysql -u root lalanje_test < db/defaults.sql 
+$ mysql -u root lalanje_test < db/data/nno/nno.sql
+$ mysql -u root lalanje_test < db/data/nno/tasks.sql
+$ rake test
+$ rake cucumber
+
+$ mysql -u root lalanje_development < db/schema.sql
+$ mysql -u root lalanje_development < db/openmrs_metadata.sql 
+$ mysql -u root lalanje_development < db/defaults.sql 
+$ mysql -u root lalanje_development < db/data/nno/nno.sql
+$ mysql -u root lalanje_development < db/data/nno/tasks.sql
